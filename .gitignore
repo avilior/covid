@@ -1,2 +1,6 @@
 # Project exclude paths
 /venv/
+/plots/
+/indata/
+/db/
+covid/__pycache__/
