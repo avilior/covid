@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+"""
+  covid
+       world
+           getData
+           covid
+           report
+              table
+              plot
+       ottawa
+"""
+import logging
+import typer                     # https://typer.tiangolo.com
+import ottawa
+import world
+
+LOG = logging.getLogger("covid")
+
+app = typer.Typer()
+
+app.add_typer(world.app, name="world")
+app.add_typer(ottawa.app, name="ottawa")
+
+
+# This is the main application: add CLI Parameters for the main CLI Application her
+@app.callback()
+def main(ctx: typer.Context):
+    """
+        This is a CLI Application for displaying Covid-19 Related data
+        world : display data related countries
+        ottawa: displays data related to the city of Ottawa
+    """
+    LOG.debug(F"COVIDAP: executing command: {ctx.invoked_subcommand}")
+
+if __name__ == '__main__':
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s,%(msecs)d %(levelname)s: %(message)s',
+        datefmt='%H:%M:%S'
+    )
+    app()
